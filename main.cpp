@@ -68,7 +68,7 @@
             static inline std::vector<std::string>  strongAgainst= {"ice","steel"};
             std::string type;
 
-            fire(int strength, int dexterity, int health, int exp, std::string special,std::string)
+            fire(int strength, int dexterity, int health, int exp, std::string special,std::string name)
                     : monster(strength, dexterity, health, exp, special,name), type("fire")
             {
 
@@ -108,18 +108,18 @@
 int main()
 {
 
-    auto water1= water(2,3,4,5,"water","watermox");
-    auto water2 = water(1,1,1,1,"hi","mons");
-    auto earth1 = earth(1,1,1,1,"hi1","mons1");
-    auto earth2= earth(2,3,4,5,"water","watermox");
-    auto air1 = air(1,1,1,1,"hi","mons");
-    auto air2 = air(1,1,1,1,"hi1","mons1");
-    auto fire1= fire(2,3,4,5,"water","watermox");
-   // auto fire2 = fire(1,1,1,1,"hi","mons"); //here it breaks
-//    auto ice1 = ice(1,1,1,1,"hi1","mons1");
-//    auto ice2= ice(2,3,4,5,"water","watermox");
-//    auto steel1 = steel(1,1,1,1,"hi","mons");
-//    auto steel2 = steel(1,1,1,1,"hi1","mons1");
+    water water1= water(2,3,4,5,"water","water1");
+    water water2 = water(1,1,1,1,"hi","water2");
+    earth earth1 = earth(1,1,1,1,"hi1","earth1");
+    earth earth2= earth(2,3,4,5,"water","earth2");
+    air air1 = air(1,1,1,1,"hi","air1");
+    air air2 = air(1,1,1,1,"hi1","air2");
+    fire fire1= fire(2,3,4,5,"water","fire1");
+   fire fire2 = fire(1,1,1,1,"hi","fire2"); //here it breaks
+    auto ice1 = ice(1,1,1,1,"hi1","ice1");
+  auto ice2= ice(2,3,4,5,"water","ice2");
+   auto steel1 = steel(1,1,1,1,"hi","steel1");
+    auto steel2 = steel(1,1,1,1,"hi1","steel2");
 /*
     for(std::string m : water::strongAgainst)
     {
@@ -127,6 +127,12 @@ int main()
         std::cout << m <<" is an easy opponet for water types" <<'\n';
     }
     */
+
+        for(monster m : monster::necronomicon)
+        {
+            std::cout<<m.name<<'\n';
+        }
+
 
 
 
