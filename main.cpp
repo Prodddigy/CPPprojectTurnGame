@@ -11,13 +11,12 @@
             int exp;
             std::string special;
             std::string name;
-            static inline std::vector<monster> necronomicon;
-
+            static inline std::vector<monster*> necronomicon;
 
              monster(int strength, int dexterity, int health, int exp, std::string special,std::string name)
             : strength(strength), dexterity(dexterity), health(health), exp(exp), special(special),name(name)
             {
-                necronomicon.push_back(*this);
+                necronomicon.push_back(this);
             }
         };
 
@@ -33,6 +32,8 @@
 
 
         }
+
+
 
         };
 
@@ -105,6 +106,57 @@
         };
 
 
+        struct player {
+
+            std::vector<monster*> playerArmy;
+
+        int round;
+        player()
+        {
+
+        }
+
+        void moveMonster(std::vector<monster*> &monsters, int beastIndex )
+        {
+
+
+            playerArmy.push_back(monsters[beastIndex]);
+            monsters.erase(monsters.begin()+beastIndex);
+
+            std::cout << "here";
+            for(monster* m : monster::necronomicon)
+            {
+                std::cout<<m->name<<'\n';
+            }
+
+    }
+
+    void chooseMonster()
+    {
+            for(int i=0 ; i<6; i++) {
+                for(monster* m : monster::necronomicon)
+                {
+                    std::cout<<m->name<<'\n';
+                }
+                int input;
+                std::cin >> input;
+                moveMonster(monster::necronomicon, input);
+            }
+    }
+
+    void showPlayerArmy()
+    {
+
+        for(monster* m : playerArmy)
+        {
+            std::cout<<m->name<<'\n';
+        }
+        std::cout<<'\n';
+    }
+
+        };
+
+
 int main()
 {
 
@@ -115,7 +167,7 @@ int main()
     air air1 = air(1,1,1,1,"hi","air1");
     air air2 = air(1,1,1,1,"hi1","air2");
     fire fire1= fire(2,3,4,5,"water","fire1");
-   fire fire2 = fire(1,1,1,1,"hi","fire2"); //here it breaks
+   fire fire2 = fire(1,1,1,1,"hi","fire2");
     auto ice1 = ice(1,1,1,1,"hi1","ice1");
   auto ice2= ice(2,3,4,5,"water","ice2");
    auto steel1 = steel(1,1,1,1,"hi","steel1");
@@ -128,12 +180,29 @@ int main()
     }
     */
 
-        for(monster m : monster::necronomicon)
+
+player me = player();
+
+        for(monster* m : monster::necronomicon)
         {
-            std::cout<<m.name<<'\n';
+            std::cout<<m->name<<'\n';
         }
 
+    me.moveMonster(monster::necronomicon, 1);
 
+
+    std::cout<<'\n';
+
+    for(monster* m : me.playerArmy)
+    {
+        std::cout<<m->name<<'\n';
+    }
+std::cout<<'\n';
+
+    for(monster* m : monster::necronomicon)
+    {
+        std::cout<<m->name<<'\n';
+    }
 
 
    // std::cout << water1.type;
