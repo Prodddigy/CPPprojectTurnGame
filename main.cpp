@@ -160,18 +160,18 @@
 int main()
 {
 
-    water water1= water(2,3,4,5,"water","water1");
-    water water2 = water(1,1,1,1,"hi","water2");
-    earth earth1 = earth(1,1,1,1,"hi1","earth1");
-    earth earth2= earth(2,3,4,5,"water","earth2");
-    air air1 = air(1,1,1,1,"hi","air1");
-    air air2 = air(1,1,1,1,"hi1","air2");
-    fire fire1= fire(2,3,4,5,"water","fire1");
-   fire fire2 = fire(1,1,1,1,"hi","fire2");
-    auto ice1 = ice(1,1,1,1,"hi1","ice1");
-  auto ice2= ice(2,3,4,5,"water","ice2");
-   auto steel1 = steel(1,1,1,1,"hi","steel1");
-    auto steel2 = steel(1,1,1,1,"hi1","steel2");
+    water water1= water(2,3,4,5,"Adam injection","Frank Fontaine");
+    water water2 = water(1,1,1,1,"Rivet gun","Big Daddy");
+    earth earth1 = earth(1,1,1,1,"Undead Wrath","Jason Voorhees");
+    earth earth2= earth(2,3,4,5,"Undying desire for vengeance","Max Payne");
+    air air1 = air(1,1,1,1,"Flame Thrower","Ellen Ripley");
+    air air2 = air(1,1,1,1,"Rewrite destiny","Mr.Scratch");
+    fire fire1= fire(2,3,4,5,"Flashlight","Alan Wake");
+   fire fire2 = fire(1,1,1,1,"Army of Darkness","Evil Ash");
+    auto ice1 = ice(1,1,1,1,"Tears in rain","Roy Batty");
+  auto ice2= ice(2,3,4,5,"Voight-Kampff test","Rick Deckard");
+   auto steel1 = steel(1,1,1,1,"Boom-stick","Ashley Williams");
+    auto steel2 = steel(1,1,1,1,"Camp protector","Tommy Jarvis");
 /*
     for(std::string m : water::strongAgainst)
     {
