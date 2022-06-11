@@ -4,21 +4,25 @@
 /**
  * stuff
  */
-        struct Monster{
+//-------------------------------------------------------------------------------------------------------------------
+
+struct Monster{
             int strength;
             int dexterity;
             int health;
+            int maxHealth;
             int exp;
             std::string special;
             std::string name;
             static inline std::vector<Monster*> necronomicon;
 
              Monster(int strength, int dexterity, int health, int exp, std::string special, std::string name)
-            : strength(strength), dexterity(dexterity), health(health), exp(exp), special(special),name(name)
+            : strength(strength), dexterity(dexterity),maxHealth(health), health(health), exp(exp), special(special),name(name)
             {
                 necronomicon.push_back(this);
             }
         };
+//-------------------------------------------------------------------------------------------------------------------
 
         struct Water : Monster{
 
@@ -36,6 +40,7 @@
 
 
         };
+//-------------------------------------------------------------------------------------------------------------------
 
         struct Earth : Monster{
 
@@ -49,7 +54,9 @@
             }
 
         };
-        struct Air : Monster{
+//-------------------------------------------------------------------------------------------------------------------
+
+struct Air : Monster{
 
             static inline std::vector<std::string> weakAgainst = {"Earth","Steel"};
             static inline  std::vector<std::string> strongAgainst={"Ice"};
@@ -62,6 +69,7 @@
             }
 
         };
+//-------------------------------------------------------------------------------------------------------------------
 
         struct Fire : Monster{
 
@@ -76,7 +84,9 @@
             }
 
         };
-        struct Ice : Monster{
+//-------------------------------------------------------------------------------------------------------------------
+
+struct Ice : Monster{
 
             static inline std::vector<std::string> weakAgainst = {"Water","Fire","Ice"};
             static inline  std::vector<std::string> strongAgainst={"Earth"};
@@ -90,6 +100,7 @@
             }
 
         };
+//-------------------------------------------------------------------------------------------------------------------
 
         struct Steel : Monster{
 
@@ -105,6 +116,7 @@
 
         };
 
+//-------------------------------------------------------------------------------------------------------------------
 
         struct Player {
 
@@ -147,15 +159,34 @@
 
     void showPlayerArmy()
     {
-
+        int enumerate=0;
         for(Monster* m : playerArmy)
         {
-            std::cout<<m->name<<'\n';
+            std::cout<<enumerate++ <<". "<<m->name<<", hp:"<< m->maxHealth<<"/"<<m->health<<", strg:"<< m->strength<<
+            ", dex:"<<m->dexterity <<", spec:"<<m->special <<", exp"<<m->exp << '\n';
         }
         std::cout<<'\n';
     }
 
+    bool checkArmyHp()
+    {
+            int deadites =0;
+            for(Monster *m : playerArmy)
+            {
+                if(m->health == 0)
+                {
+                    deadites++;
+                }
+            }
+            if(deadites<=6)
+            {
+                return false;
+            }
+            else
+                return true;
+    }
         };
+//-------------------------------------------------------------------------------------------------------------------
 
         struct Opponent{
 
@@ -163,6 +194,7 @@
 
            static inline std::vector<Opponent*> allEnemies;
             std::string name;
+
             Opponent(std::string name)
             : name(name)
             {
@@ -191,8 +223,108 @@
                 std::cout<<'\n';
             }
 
+            bool isEnemyArmyDead()
+            {
+                int deadites =0;
+                for(Monster *m : enemyArmy)
+                {
+                    if(m->health <= 0)
+                    {
+                        deadites++;
+                    }
+                }
+                if(deadites==4)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+            bool isAllEnemiesDead()
+            {
+                int deadites=0;
+                for( Opponent* o : allEnemies)
+                {
+                    if(o->isEnemyArmyDead())
+                    {
+                        deadites++;
+                    }
+                }
+
+            }
         };
 
+//-------------------------------------------------------------------------------------------------------------------
+
+        struct Start {
+
+            static int round;
+            static int turn;
+
+            Start()
+            {
+            }
+
+            void battle(Player player, std::vector<Opponent*> allEnemies) {
+                bool playerWins = false;
+                int enemyMonsterCounter = 0;
+                Monster playerMonster = playerChooseMonster(player);
+
+                Opponent *currentOpponent = allEnemies[0];
+
+                Monster *enemyMonster = currentOpponent->enemyArmy[enemyMonsterCounter];
+
+                while (player.checkArmyHp()) {
+                    if (currentOpponent->isEnemyArmyDead()) {
+                        break;
+                    } else if (currentOpponent->isEnemyArmyDead())//checks if enemy's army is dead
+                    {
+
+                    } else if (enemyMonster->health <= 0) {
+                        enemyMonster = currentOpponent->enemyArmy[enemyMonsterCounter++];
+                    }
+
+                    char input;
+                    std::cin >> input;
+                    switch (input) {
+                        case 'a' : {//attack
+                            break;
+
+                        }
+                        case 's': {//special
+                            break;
+
+                        }
+                        case 'c': {//change
+                            break;
+
+                        }
+                        case 'h': {//help
+                            break;
+                        }
+                        default : {
+                            std::cout << "try again";
+                        }
+                    }
+
+
+                }
+
+                //while()
+
+            }
+
+            Monster playerChooseMonster(Player player)
+            {
+                std::cout<<"Choose your fighter by index: "<<'\n';
+                player.showPlayerArmy();
+                int userInput;
+                std::cin>> userInput;
+                return *player.playerArmy[userInput];
+            }
+
+        };
 
 int main()
 
