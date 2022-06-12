@@ -10,10 +10,10 @@ struct Air : Monster{
     static inline std::vector<std::string> weakAgainst;
     static inline  std::vector<std::string> strongAgainst;
 
-    std::string type;
+    std::string type ;
 
-    Air(int strength, int dexterity, int health, int exp, const std::string& special, const std::string& name)
-            : Monster(strength, dexterity, health, exp, special, name), type("Air") { }
+    Air(int strength, int dexterity, int health, int exp, const std::string& special, const std::string& name,std::string type)
+            : Monster(strength, dexterity, health, exp, special, name,type) { }
 
     static auto init() -> void;
 };

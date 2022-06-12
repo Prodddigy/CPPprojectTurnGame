@@ -34,11 +34,15 @@
 
     void chooseMonster()
     {
+            std::cout<<"Choose your champions"<<'\n';
+
             for(int i=0 ; i<6; i++) {
                 int number=0;
                 for(Monster* m : Monster::necronomicon)
                 {
-                    std::cout<<number++ <<". "<<m->name<<'\n';
+                    std::cout<<number++ <<". "<<m->name<<", hp: "<< m->maxHealth<<"/"<<m->health<<", strg: "<< m->strength<<
+                             ", dex: "<<m->dexterity <<", spec: "<<m->special <<", exp: "<<m->exp <<", type: "<<m->type<< '\n';
+                    std::cout<<"----------------------------------------------------------------------------------------------"<<'\n';
                 }
                 int input;
                 std::cin >> input;
@@ -51,8 +55,8 @@
         int enumerate=0;
         for(Monster* m : playerArmy)
         {
-            std::cout<<enumerate++ <<". "<<m->name<<", hp:"<< m->maxHealth<<"/"<<m->health<<", strg:"<< m->strength<<
-            ", dex:"<<m->dexterity <<", spec:"<<m->special <<", exp"<<m->exp << '\n';
+            std::cout<<enumerate++ <<". "<<m->name<<", hp: "<< m->maxHealth<<"/"<<m->health<<", strg: "<< m->strength<<
+            ", dex: "<<m->dexterity <<", spec: "<<m->special <<", exp: "<<m->exp <<", type: "<<m->type<< '\n';
         }
         std::cout<<'\n';
     }
@@ -165,13 +169,149 @@
 
                 void playerAttack(Monster attackingMon, Monster *victimMon)
                 {
-                    victimMon->health -= attackingMon.strength;
+
+                        bool foundSpot = false;
 
 
+                    //weakness
+                    //Earth::weakAgainst
+
+                if(attackingMon.type =="Earth")
+                {
+                    for( const std::string& weak : Earth::weakAgainst)
+                    {
+                        if(weak == victimMon->type)
+                        {
+                            victimMon->health -= (attackingMon.strength-3);
+                            foundSpot =true;
+                        }
+                    }
+                    if(!foundSpot) {
+                        for (const std::string &strong: Earth::strongAgainst) {
+                            if (strong == victimMon->type) {
+                                victimMon->health -= (attackingMon.strength + 3);
+                                foundSpot= true;
+                            }
+                        }
+                        if(!foundSpot)
+                            victimMon->health -= (attackingMon.strength );
+                    }
+                }
+                else if(attackingMon.type =="Fire")
+                {
+                    for( const std::string& weak : Fire::weakAgainst)
+                    {
+                        if(weak == victimMon->type)
+                        {
+                            victimMon->health -= (attackingMon.strength-3);
+                            foundSpot= true;
+                        }
+                    }
+                    if(!foundSpot){
+                    for( const std::string& strong : Fire::strongAgainst)
+                    {
+                        if(strong == victimMon->type)
+                        {
+                            victimMon->health -= (attackingMon.strength+3);
+                            foundSpot =true;
+                        }
+                    }
+                }  if(!foundSpot)
+                        victimMon->health -= (attackingMon.strength );
+                }
+                else if(attackingMon.type =="Water")
+                {
+                    for( const std::string& weak : Water::weakAgainst)
+                    {
+                        if(weak == victimMon->type)
+                        {
+                            victimMon->health -= (attackingMon.strength-3);
+                            foundSpot= true;
+                        }
+
+                    }
+                    if(!foundSpot){
+                    for( const std::string& strong : Water::strongAgainst)
+                    {
+                        if(strong == victimMon->type)
+                        {
+                            victimMon->health -= (attackingMon.strength+3);
+                            foundSpot = true;
+                        }
+                    }
+                }  if(!foundSpot)
+                        victimMon->health -= (attackingMon.strength );
+                }
+
+                else if(attackingMon.type =="Steel")
+                {
+                    for( const std::string& weak : Steel::weakAgainst)
+                    {
+                        if(weak == victimMon->type)
+                        {
+                            victimMon->health -= (attackingMon.strength-3);
+                            foundSpot =true;
+                        }
+                    }
+                    if(!foundSpot) {
+                        for (const std::string &strong: Steel::strongAgainst) {
+                            if (strong == victimMon->type) {
+                                victimMon->health -= (attackingMon.strength + 3);
+                                foundSpot= true;
+                            }
+                        }
+                    }
+                    if(!foundSpot)
+                        victimMon->health -= (attackingMon.strength );
+                }
+                else if(attackingMon.type =="Ice")
+                {
+                    for( const std::string& weak : Ice::weakAgainst)
+                    {
+                        if(weak == victimMon->type)
+                        {
+                            victimMon->health -= (attackingMon.strength-3);
+                            foundSpot=true;
+                        }
+                    }
+                    if(!foundSpot){
+                    for( const std::string& strong : Ice::strongAgainst)
+                    {
+                        if(strong == victimMon->type)
+                        {
+                            victimMon->health -= (attackingMon.strength+3);
+                            foundSpot=true;
+                        }
+                    }
+                    }
+                    if(!foundSpot)
+                            victimMon->health -= (attackingMon.strength );
+                }
+                else if(attackingMon.type =="Air")
+                {
+                    for( const std::string& weak : Air::weakAgainst)
+                    {
+                        if(weak == victimMon->type)
+                        {
+                            victimMon->health -= (attackingMon.strength-3);
+                            foundSpot =true;
+                        }
+                    }
+                    if(!foundSpot) {
+                        for (const std::string &strong: Air::strongAgainst) {
+                            if (strong == victimMon->type) {
+                                victimMon->health -= (attackingMon.strength + 3);
+                                foundSpot =true;
+                            }
+                        }
+                    }
+                    if(!foundSpot)
+                        victimMon->health -= (attackingMon.strength );
+                  }
                 }
 
 
-                void battle(Player& player, std::vector<Opponent*> allEnemies) {
+                auto battle(Player& player, std::vector<Opponent*> allEnemies) {
 
                 bool playerWins = false;
                 int enemyMonsterCounter = 0;
@@ -203,44 +343,58 @@
                     }
 
                     std::cout<<"a - playerAttack, s - special, c - change, h - help, q - quit"<<'\n';
+                    if(enemyMonster->health>0) {
 
-std::cout<<"PLAYER "<<"--------------------VS-------------------------------------------------------  "<<currentOpponent->name<<'\n';
-std::cout<<"CHAMPION: "<<playerMonster.name<<" ----------------------------------------------------  "<<"CHAMPION: "<<enemyMonster->name<<'\n';
-std::cout<<"HP: "<<playerMonster.health<<"/"<<playerMonster.maxHealth<<" -------------------------------------------------------------------------  "<<"HP: "<<enemyMonster->health<<"/"<<enemyMonster->maxHealth<<'\n';
-std::cout<<"STRENGTH: "<<playerMonster.strength<<" -----------------------------------------------------------------  "<<"STRENGTH: "<<enemyMonster->strength<<'\n';
-std::cout<<"SPECIAL: "<<playerMonster.special<<" ---------------------------------------------------  "<<"SPECIAL: "<<enemyMonster->special<<'\n';
-std::cout<<"EXP: "<<playerMonster.exp<<" --------------------------------------------------------------  "<<'\n';
+                        std::cout << "PLAYER "
+                                  << "--------------------VS-------------------------------------------------------  "
+                                  << currentOpponent->name << '\n';
+                        std::cout << "CHAMPION: " << playerMonster.name
+                                  << " ----------------------------------------------------  " << "CHAMPION: "
+                                  << enemyMonster->name << '\n';
+                        std::cout << "HP: " << playerMonster.health << "/" << playerMonster.maxHealth
+                                  << " -------------------------------------------------------------------------  "
+                                  << "HP: " << enemyMonster->health << "/" << enemyMonster->maxHealth << '\n';
+                        std::cout << "STRENGTH: " << playerMonster.strength
+                                  << " -----------------------------------------------------------------  "
+                                  << "STRENGTH: " << enemyMonster->strength << '\n';
+                        std::cout << "SPECIAL: " << playerMonster.special
+                                  << " ---------------------------------------------------  " << "SPECIAL: "
+                                  << enemyMonster->special << '\n';
+                        std::cout << "EXP: " << playerMonster.exp
+                                  << " --------------------------------------------------------------  " << '\n';
+                        std::cout << "TYPE: " << playerMonster.type
+                                  << " -----------------------------------------------------------------  " << "TYPE: "
+                                  << enemyMonster->type << '\n';
+                    }
+                    else{
+                        std::cout<<"PRESS a FOR THE NEXT BATTLE"<<'\n';
+                    }
 
                     char input;
                     std::cin >> input;
                     switch (input) {
                         case 'a' : {//playerAttack
-                                std::cout<<"fight"<<'\n';
-                            //    std::cout<<playerMonster.name << " vs "<< currentOpponent->name<<" with "<<enemyMonster->name
-                              //  << "hp: " << enemyMonster->health<<"/"<<enemyMonster->maxHealth << '\n';
-
-                            playerAttack(playerMonster, enemyMonster);
-                            std::cout<<"after attack";
-                            std::cout<<playerMonster.name << " vs "<< currentOpponent->name<<" with "<<enemyMonster->name
-                                     << "hp: " << enemyMonster->health<<"/"<<enemyMonster->maxHealth<< '\n';
+                               // std::cout<<"fight"<<'\n';
+                            if((rand()%10 +1)+enemyMonster->dexterity>=7) {
+                                playerAttack(playerMonster, enemyMonster);
+                            }
+                            else{
+                                std::cout<<enemyMonster->name<<" has dodged attack"<<'\n';
+                            }
                             break;
-
                         }
                         case 's': {//special
                             std::cout<<"special";
 
                             break;
-
                         }
                         case 'c': {//change
                             std::cout<<"change";
                             playerMonster = playerChooseMonster(player);
                             break;
-
                         }
                         case 'h': {//help
                             std::cout<<"help";
-
                             break;
                         }
                         case 'q': {
@@ -288,32 +442,33 @@ int main() {/*
     Ice::init();
     Steel::init();
 
-    auto steel0 = Steel(1, 3, 10, 0, "Camp protector", "Tommy Jarvis");
-    auto water1= Water(1, 3, 10, 0, "Adam injection", "Frank Fontaine");
-    auto water2= Water(1, 3, 10, 0, "Adam injection", "Frank Fontaine");
-    auto water3 = Water(1, 3, 10, 0, "Rivet gun", "Big Daddy");
-    auto water4 = Water(1, 3, 10, 0, "Rivet gun", "Big Daddy");
-    auto earth5 = Earth(1, 3, 10, 0, "Undead Wrath", "Jason Voorhees");
-    auto earth6 = Earth(1, 3, 10, 0, "Undead Wrath", "Jason Voorhees");
-    auto earth7= Earth(1, 3, 10, 0, "Undying desire for vengeance", "Max Payne");
-    auto earth8= Earth(1, 3, 10, 0, "Undying desire for vengeance", "Max Payne");
-    auto air9 = Air(1, 3, 10, 0, "Flame Thrower", "Ellen Ripley");
-    auto air10 = Air(1, 3, 10, 0, "Flame Thrower", "Ellen Ripley");
-    auto air11 = Air(1, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood");
-    auto air12 = Air(1, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood");
-    auto fire13= Fire(1, 3, 10, 0, "Flashlight", "Alan Wake");
-    auto fire14= Fire(1, 3, 10, 0, "Flashlight", "Alan Wake");
-    auto fire15 = Fire(1, 3, 10, 0, "Army of Darkness", "Evil Ash");
-    auto fire16 = Fire(1, 3, 10, 0, "Army of Darkness", "Evil Ash");
-    auto ice17 = Ice(1, 3, 10, 0, "Tears in rain", "Roy Batty");
-    auto ice18 = Ice(1, 3, 10, 0, "Tears in rain", "Roy Batty");
-    auto ice19= Ice(1, 3, 10, 0, "Voight-Kampff test", "Rick Deckard");
-    auto ice20= Ice(1, 3, 10, 0, "Voight-Kampff test", "Rick Deckard");
-    auto steel21 = Steel(1, 3, 10, 0, "Boom-stick", "Ashley Williams");
-    auto steel22 = Steel(1, 3, 10, 0, "Boom-stick", "Ashley Williams");
-    auto steel23 = Steel(1, 3, 10, 0, "Camp protector", "Tommy Jarvis");
-    auto steel24 = Steel(1, 3, 10, 0, "Camp protector", "Tommy Jarvis");
-    auto air25 = Air(1, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood");
+    //std::cout<<Air::type;
+    auto steel0 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel");
+    auto water1= Water(4, 3, 10, 0, "Adam injection", "Frank Fontaine","Water");
+    auto water2= Water(4, 3, 10, 0, "Adam injection", "Frank Fontaine","Water");
+    auto water3 = Water(4, 3, 10, 0, "Rivet gun", "Big Daddy","Water");
+    auto water4 = Water(4, 3, 10, 0, "Rivet gun", "Big Daddy","Water");
+    auto earth5 = Earth(4, 3, 10, 0, "Undead Wrath", "Jason Voorhees","Earth");
+    auto earth6 = Earth(4, 3, 10, 0, "Undead Wrath", "Jason Voorhees","Earth");
+    auto earth7= Earth(4, 3, 10, 0, "Undying desire for vengeance", "Max Payne","Earth");
+    auto earth8= Earth(4, 3, 10, 0, "Undying desire for vengeance", "Max Payne","Earth");
+    auto air9 = Air(4, 3, 10, 0, "Flame Thrower", "Ellen Ripley","Air");
+    auto air10 = Air(4, 3, 10, 0, "Flame Thrower", "Ellen Ripley","Air");
+    auto air11 = Air(4, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood","Air");
+    auto air12 = Air(4, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood","Air");
+    auto fire13= Fire(4, 3, 10, 0, "Flashlight", "Alan Wake","Fire");
+    auto fire14= Fire(4, 3, 10, 0, "Flashlight", "Alan Wake","Fire");
+    auto fire15 = Fire(4, 3, 10, 0, "Army of Darkness", "Evil Ash","Fire");
+    auto fire16 = Fire(4, 3, 10, 0, "Army of Darkness", "Evil Ash","Fire");
+    auto ice17 = Ice(4, 3, 10, 0, "Tears in rain", "Roy Batty","Ice");
+    auto ice18 = Ice(4, 3, 10, 0, "Tears in rain", "Roy Batty","Ice");
+    auto ice19= Ice(4, 3, 10, 0, "Voight-Kampff test", "Rick Deckard","Ice");
+    auto ice20= Ice(4, 3, 10, 0, "Voight-Kampff test", "Rick Deckard","Ice");
+    auto steel21 = Steel(4, 3, 10, 0, "Boom-stick", "Ashley Williams","Steel");
+    auto steel22 = Steel(4, 3, 10, 0, "Boom-stick", "Ashley Williams","Steel");
+    auto steel23 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel");
+    auto steel24 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel");
+    auto air25 = Air(4, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood","Air");
 /*
     for(std::string m : Water::strongAgainst)
     {

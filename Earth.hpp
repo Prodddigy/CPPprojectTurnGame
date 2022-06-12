@@ -11,10 +11,11 @@ struct Earth : Monster{
     static inline  std::vector<std::string> weakAgainst;
         static inline std::vector<std::string>  strongAgainst;
 
-    std::string type;
+  static inline  std::string type;
 
-     Earth(int strength, int dexterity, int health, int exp, const std::string& special, const std::string& name)
-                    : Monster(strength, dexterity, health, exp, special, name), type("Earth") { };
+     Earth(int strength, int dexterity, int health, int exp, const std::string& special, const std::string& name, std::string type)
+                    : Monster(strength, dexterity, health, exp, special, name,type)
+                    {};
 
     static auto init() -> void;
 };

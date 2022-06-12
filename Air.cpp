@@ -3,4 +3,5 @@
 auto Air::init() -> void {
     Air::weakAgainst = {"Earth","Steel"};
     Air::strongAgainst = {"Ice"};
+   // Air::type = "Air";
 }
