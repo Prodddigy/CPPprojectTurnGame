@@ -1,126 +1,15 @@
 #include <iostream>
 #include <vector>
-
-/**
- * stuff
- */
-//-------------------------------------------------------------------------------------------------------------------
-
-struct Monster{
-            int strength;
-            int dexterity;
-            int health;
-            int maxHealth;
-            int exp;
-            std::string special;
-            std::string name;
-            static inline std::vector<Monster*> necronomicon;
-
-             Monster(int strength, int dexterity, int health, int exp, std::string special, std::string name)
-            : strength(strength), dexterity(dexterity),maxHealth(health), health(health), exp(exp), special(special),name(name)
-            {
-                necronomicon.push_back(this);
-            }
-        };
-//-------------------------------------------------------------------------------------------------------------------
-
-        struct Water : Monster{
-
-           static inline std::vector<std::string> weakAgainst = {"Water"};
-           static inline  std::vector<std::string> strongAgainst={"Earth","Fire"};
-           std::string type;
-
-        Water(int strength, int dexterity, int health, int exp, std::string special, std::string name)
-        : Monster(strength, dexterity, health, exp, special, name), type("Water")
-        {
-
-
-        }
-
-
-
-        };
-//-------------------------------------------------------------------------------------------------------------------
-
-        struct Earth : Monster{
-
-            static inline  std::vector<std::string> weakAgainst = {"Air"};
-            static inline std::vector<std::string>  strongAgainst= {"Fire","Ice","Steel"};
-            std::string type;
-            Earth(int strength, int dexterity, int health, int exp, std::string special, std::string name)
-                    : Monster(strength, dexterity, health, exp, special, name), type("Earth")
-            {
-
-            }
-
-        };
-//-------------------------------------------------------------------------------------------------------------------
-
-struct Air : Monster{
-
-            static inline std::vector<std::string> weakAgainst = {"Earth","Steel"};
-            static inline  std::vector<std::string> strongAgainst={"Ice"};
-            std::string type;
-            Air(int strength, int dexterity, int health, int exp, std::string special, std::string name)
-                    : Monster(strength, dexterity, health, exp, special, name), type("Air")
-            {
-
-
-            }
-
-        };
-//-------------------------------------------------------------------------------------------------------------------
-
-        struct Fire : Monster{
-
-            static inline  std::vector<std::string> weakAgainst = {"Water","Earth"};
-            static inline std::vector<std::string>  strongAgainst= {"Ice","Steel"};
-            std::string type;
-
-            Fire(int strength, int dexterity, int health, int exp, std::string special, std::string name)
-                    : Monster(strength, dexterity, health, exp, special, name), type("Fire")
-            {
-
-            }
-
-        };
-//-------------------------------------------------------------------------------------------------------------------
-
-struct Ice : Monster{
-
-            static inline std::vector<std::string> weakAgainst = {"Water","Fire","Ice"};
-            static inline  std::vector<std::string> strongAgainst={"Earth"};
-            std::string type;
-
-            Ice(int strength, int dexterity, int health, int exp, std::string special, std::string name)
-                    : Monster(strength, dexterity, health, exp, special, name), type("Ice")
-            {
-
-
-            }
-
-        };
-//-------------------------------------------------------------------------------------------------------------------
-
-        struct Steel : Monster{
-
-            static inline std::vector<std::string> weakAgainst = {"Fire","Steel"};
-            static inline std::vector<std::string>  strongAgainst= {"Water","Air"};
-            std::string type;
-
-            Steel(int strength, int dexterity, int health, int exp, std::string special, std::string name)
-                    : Monster(strength, dexterity, health, exp, special, name), type("Steel")
-            {
-
-            }
-
-        };
-
-//-------------------------------------------------------------------------------------------------------------------
+#include "Monster.hpp"
+#include "Water.hpp"
+#include "Earth.hpp"
+#include "Air.hpp"
+#include "Fire.hpp"
+#include "Ice.hpp"
+#include "Steel.hpp"
 
         struct Player {
-
-            std::vector<Monster*> playerArmy;
+        std::vector<Monster*> playerArmy;
 
         int round;
         Player()
@@ -173,12 +62,12 @@ struct Ice : Monster{
             int deadites =0;
             for(Monster *m : playerArmy)
             {
-                if(m->health == 0)
+                if(m->health <= 0)
                 {
                     deadites++;
                 }
             }
-            if(deadites<=6)
+            if(deadites==6)
             {
                 return false;
             }
@@ -192,7 +81,7 @@ struct Ice : Monster{
 
             std::vector<Monster*> enemyArmy;
 
-           static inline std::vector<Opponent*> allEnemies;
+            static inline std::vector<Opponent*> allEnemies;
             std::string name;
 
             Opponent(std::string name)
@@ -233,7 +122,7 @@ struct Ice : Monster{
                         deadites++;
                     }
                 }
-                if(deadites==4)
+                if(deadites==4)//4 set to 4!!!
                 {
                     return true;
                 }
@@ -241,7 +130,7 @@ struct Ice : Monster{
                     return false;
             }
 
-            bool isAllEnemiesDead()
+            static bool isAllEnemiesDead()
             {
                 int deadites=0;
                 for( Opponent* o : allEnemies)
@@ -250,6 +139,13 @@ struct Ice : Monster{
                     {
                         deadites++;
                     }
+                }
+                if(deadites ==4)
+                {
+                    return true;
+                }
+                else{
+                    return false;
                 }
 
             }
@@ -264,48 +160,100 @@ struct Ice : Monster{
 
             Start()
             {
+                std::cout<<"starts the game";
             }
 
-            void battle(Player player, std::vector<Opponent*> allEnemies) {
+                void playerAttack(Monster attackingMon, Monster *victimMon)
+                {
+                    victimMon->health -= attackingMon.strength;
+
+
+                }
+
+
+                void battle(Player& player, std::vector<Opponent*> allEnemies) {
+
                 bool playerWins = false;
                 int enemyMonsterCounter = 0;
-                Monster playerMonster = playerChooseMonster(player);
+                int enemyCounter=0;
 
-                Opponent *currentOpponent = allEnemies[0];
+              //  Monster playerMonster = *player.playerArmy[0];
+               Monster playerMonster = playerChooseMonster(player);
+
+                Opponent *currentOpponent = allEnemies[enemyCounter];
 
                 Monster *enemyMonster = currentOpponent->enemyArmy[enemyMonsterCounter];
 
                 while (player.checkArmyHp()) {
-                    if (currentOpponent->isEnemyArmyDead()) {
-                        break;
-                    } else if (currentOpponent->isEnemyArmyDead())//checks if enemy's army is dead
-                    {
+                    std::cout<<"enters loop?";
+                    if (Opponent::isAllEnemiesDead()) {
+                        playerWins= true;
 
-                    } else if (enemyMonster->health <= 0) {
+                        std::cout<<"game ends :)";
+                        break;
+                    }
+                    else if (currentOpponent->isEnemyArmyDead())//checks if enemy's army is dead
+                    {
+                        enemyMonsterCounter =0;
+                        enemyCounter++;
+                        currentOpponent=allEnemies[enemyCounter];
+                    }
+                    else if (enemyMonster->health <= 0) {
                         enemyMonster = currentOpponent->enemyArmy[enemyMonsterCounter++];
                     }
+
+                    std::cout<<"a - playerAttack, s - special, c - change, h - help, q - quit"<<'\n';
+
+std::cout<<"PLAYER "<<"--------------------VS-------------------------------------------------------  "<<currentOpponent->name<<'\n';
+std::cout<<"CHAMPION: "<<playerMonster.name<<" ----------------------------------------------------  "<<"CHAMPION: "<<enemyMonster->name<<'\n';
+std::cout<<"HP: "<<playerMonster.health<<"/"<<playerMonster.maxHealth<<" -------------------------------------------------------------------------  "<<"HP: "<<enemyMonster->health<<"/"<<enemyMonster->maxHealth<<'\n';
+std::cout<<"STRENGTH: "<<playerMonster.strength<<" -----------------------------------------------------------------  "<<"STRENGTH: "<<enemyMonster->strength<<'\n';
+std::cout<<"SPECIAL: "<<playerMonster.special<<" ---------------------------------------------------  "<<"SPECIAL: "<<enemyMonster->special<<'\n';
+std::cout<<"EXP: "<<playerMonster.exp<<" --------------------------------------------------------------  "<<'\n';
 
                     char input;
                     std::cin >> input;
                     switch (input) {
-                        case 'a' : {//attack
+                        case 'a' : {//playerAttack
+                                std::cout<<"fight"<<'\n';
+                            //    std::cout<<playerMonster.name << " vs "<< currentOpponent->name<<" with "<<enemyMonster->name
+                              //  << "hp: " << enemyMonster->health<<"/"<<enemyMonster->maxHealth << '\n';
+
+                            playerAttack(playerMonster, enemyMonster);
+                            std::cout<<"after attack";
+                            std::cout<<playerMonster.name << " vs "<< currentOpponent->name<<" with "<<enemyMonster->name
+                                     << "hp: " << enemyMonster->health<<"/"<<enemyMonster->maxHealth<< '\n';
                             break;
 
                         }
                         case 's': {//special
+                            std::cout<<"special";
+
                             break;
 
                         }
                         case 'c': {//change
+                            std::cout<<"change";
+                            playerMonster = playerChooseMonster(player);
                             break;
 
                         }
                         case 'h': {//help
+                            std::cout<<"help";
+
+                            break;
+                        }
+                        case 'q': {
+                            std::cout<<"quit";
                             break;
                         }
                         default : {
                             std::cout << "try again";
                         }
+                    }
+                    if(input == 'q')
+                    {
+                        break;
                     }
 
 
@@ -315,7 +263,7 @@ struct Ice : Monster{
 
             }
 
-            Monster playerChooseMonster(Player player)
+            static Monster playerChooseMonster(Player player)
             {
                 std::cout<<"Choose your fighter by index: "<<'\n';
                 player.showPlayerArmy();
@@ -325,41 +273,47 @@ struct Ice : Monster{
             }
 
         };
+//-------------------------------------------------------------------------------------------------------------------
 
-int main()
-
-{/*
+int main() {/*
  * make all structs
  * each struct has a seperate file
  *
  *
  */
-    auto steel0 = Steel(1, 1, 1, 1, "Boom-stick", "Ashley Williams");
-    auto water1= Water(2, 3, 4, 5, "Adam injection", "Frank Fontaine");
-    auto water2= Water(2, 3, 4, 5, "Adam injection", "Frank Fontaine");
-    auto water3 = Water(1, 1, 1, 1, "Rivet gun", "Big Daddy");
-    auto water4 = Water(1, 1, 1, 1, "Rivet gun", "Big Daddy");
-    auto earth5 = Earth(1, 1, 1, 1, "Undead Wrath", "Jason Voorhees");
-    auto earth6 = Earth(1, 1, 1, 1, "Undead Wrath", "Jason Voorhees");
-    auto earth7= Earth(2, 3, 4, 5, "Undying desire for vengeance", "Max Payne");
-    auto earth8= Earth(2, 3, 4, 5, "Undying desire for vengeance", "Max Payne");
-    auto air9 = Air(1, 1, 1, 1, "Flame Thrower", "Ellen Ripley");
-    auto air10 = Air(1, 1, 1, 1, "Flame Thrower", "Ellen Ripley");
-    auto air11 = Air(1, 1, 1, 1, "Rewrite destiny", "Guybrush Threepwood");
-    auto air12 = Air(1, 1, 1, 1, "Rewrite destiny", "Guybrush Threepwood");
-    auto fire13= Fire(2, 3, 4, 5, "Flashlight", "Alan Wake");
-    auto fire14= Fire(2, 3, 4, 5, "Flashlight", "Alan Wake");
-    auto fire15 = Fire(1, 1, 1, 1, "Army of Darkness", "Evil Ash");
-    auto fire16 = Fire(1, 1, 1, 1, "Army of Darkness", "Evil Ash");
-    auto ice17 = Ice(1, 1, 1, 1, "Tears in rain", "Roy Batty");
-    auto ice18 = Ice(1, 1, 1, 1, "Tears in rain", "Roy Batty");
-    auto ice19= Ice(2, 3, 4, 5, "Voight-Kampff test", "Rick Deckard");
-    auto ice20= Ice(2, 3, 4, 5, "Voight-Kampff test", "Rick Deckard");
-    auto steel21 = Steel(1, 1, 1, 1, "Boom-stick", "Ashley Williams");
-    auto steel22 = Steel(1, 1, 1, 1, "Boom-stick", "Ashley Williams");
-    auto steel23 = Steel(1, 1, 1, 1, "Camp protector", "Tommy Jarvis");
-    auto steel24 = Steel(1, 1, 1, 1, "Camp protector", "Tommy Jarvis");
+    Water::init();
+    Earth::init();
+    Air::init();
+    Fire::init();
+    Ice::init();
+    Steel::init();
 
+    auto steel0 = Steel(1, 3, 10, 0, "Camp protector", "Tommy Jarvis");
+    auto water1= Water(1, 3, 10, 0, "Adam injection", "Frank Fontaine");
+    auto water2= Water(1, 3, 10, 0, "Adam injection", "Frank Fontaine");
+    auto water3 = Water(1, 3, 10, 0, "Rivet gun", "Big Daddy");
+    auto water4 = Water(1, 3, 10, 0, "Rivet gun", "Big Daddy");
+    auto earth5 = Earth(1, 3, 10, 0, "Undead Wrath", "Jason Voorhees");
+    auto earth6 = Earth(1, 3, 10, 0, "Undead Wrath", "Jason Voorhees");
+    auto earth7= Earth(1, 3, 10, 0, "Undying desire for vengeance", "Max Payne");
+    auto earth8= Earth(1, 3, 10, 0, "Undying desire for vengeance", "Max Payne");
+    auto air9 = Air(1, 3, 10, 0, "Flame Thrower", "Ellen Ripley");
+    auto air10 = Air(1, 3, 10, 0, "Flame Thrower", "Ellen Ripley");
+    auto air11 = Air(1, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood");
+    auto air12 = Air(1, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood");
+    auto fire13= Fire(1, 3, 10, 0, "Flashlight", "Alan Wake");
+    auto fire14= Fire(1, 3, 10, 0, "Flashlight", "Alan Wake");
+    auto fire15 = Fire(1, 3, 10, 0, "Army of Darkness", "Evil Ash");
+    auto fire16 = Fire(1, 3, 10, 0, "Army of Darkness", "Evil Ash");
+    auto ice17 = Ice(1, 3, 10, 0, "Tears in rain", "Roy Batty");
+    auto ice18 = Ice(1, 3, 10, 0, "Tears in rain", "Roy Batty");
+    auto ice19= Ice(1, 3, 10, 0, "Voight-Kampff test", "Rick Deckard");
+    auto ice20= Ice(1, 3, 10, 0, "Voight-Kampff test", "Rick Deckard");
+    auto steel21 = Steel(1, 3, 10, 0, "Boom-stick", "Ashley Williams");
+    auto steel22 = Steel(1, 3, 10, 0, "Boom-stick", "Ashley Williams");
+    auto steel23 = Steel(1, 3, 10, 0, "Camp protector", "Tommy Jarvis");
+    auto steel24 = Steel(1, 3, 10, 0, "Camp protector", "Tommy Jarvis");
+    auto air25 = Air(1, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood");
 /*
     for(std::string m : Water::strongAgainst)
     {
@@ -371,32 +325,7 @@ int main()
 
 Player me = Player();
 
-        for(Monster* m : Monster::necronomicon)
-        {
-            std::cout<<m->name<<'\n';
-        }
-
-//    me.moveMonster(Monster::necronomicon, 1);
-//    me.moveMonster(Monster::necronomicon, 1);
-//    me.moveMonster(Monster::necronomicon, 1);
     me.chooseMonster();
-    std::cout<<'\n';
-
-    me.showPlayerArmy();
-
-//    for(Monster* m : me.playerArmy)
-//    {
-//        std::cout<<m->name<<'\n';
-//    }
-std::cout<<'\n'<<"after selecting champs these are the contents of necronimicon:" << '/n';
-
-
-    for(Monster* m : Monster::necronomicon)
-    {
-        std::cout<<m->name<<'\n';
-    }
-
-    std::cout<<'\n'<<"Opponents choose their monsters"<< '\n';
 
     Opponent hercules = Opponent("hercules");
     Opponent zeus = Opponent("zeus");
@@ -404,36 +333,14 @@ std::cout<<'\n'<<"after selecting champs these are the contents of necronimicon:
     Opponent zagreus = Opponent("zagreus");
 
     hercules.moveMonster(Monster::necronomicon);
-    std::cout<< '\n';
-    hercules.showOpponentArmy();
 
     zeus.moveMonster(Monster::necronomicon);
-    std::cout<< '\n';
-    zeus.showOpponentArmy();
 
     nyx.moveMonster(Monster::necronomicon);
-    std::cout<< '\n';
-    nyx.showOpponentArmy();
-
-    std::cout<<"does it hit here?";
 
     zagreus.moveMonster(Monster::necronomicon);
- //   std::cout<<"here?" <<'\n';
 
-    zagreus.showOpponentArmy();
+    Start start = Start();
 
-
-    std::cout<<" here is list of monsters that lef"<<'\n';
-    for(Monster* m : Monster::necronomicon)
-    {
-        std::cout<<m->name<<'\n';
-    }
-
-   // std::cout << water1.type;
-    std::cout<<" are 4 enemies present in allEnemies vector?"<<'\n';
-    for(Opponent* o : Opponent::allEnemies)
-    {
-        std::cout<<o->name<<'\n';
-    }
-
+    start.battle(me,Opponent::allEnemies);
 }
