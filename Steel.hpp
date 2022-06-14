@@ -1,5 +1,6 @@
 #ifndef DAMIAN_STEEL_HPP
 #define DAMIAN_STEEL_HPP
+#pragma once
 #include <vector>
 #include <string>
 #include "Monster.hpp"
