@@ -36,57 +36,50 @@ int main() {/*
     Steel::init();
 
     //std::cout<<Air::type;
-    auto steel0 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel");
-    auto water1= Water(4, 3, 10, 0, "Adam injection", "Frank Fontaine","Water");
-    auto water2= Water(4, 3, 10, 0, "Adam injection", "Frank Fontaine","Water");
-    auto water3 = Water(4, 3, 10, 0, "Rivet gun", "Big Daddy","Water");
-    auto water4 = Water(4, 3, 10, 0, "Rivet gun", "Big Daddy","Water");
-    auto earth5 = Earth(4, 3, 10, 0, "Undead Wrath", "Jason Voorhees","Earth");
-    auto earth6 = Earth(4, 3, 10, 0, "Undead Wrath", "Jason Voorhees","Earth");
-    auto earth7= Earth(4, 3, 10, 0, "Undying desire for vengeance", "Max Payne","Earth");
-    auto earth8= Earth(4, 3, 10, 0, "Undying desire for vengeance", "Max Payne","Earth");
-    auto air9 = Air(4, 3, 10, 0, "Flame Thrower", "Ellen Ripley","Air");
-    auto air10 = Air(4, 3, 10, 0, "Flame Thrower", "Ellen Ripley","Air");
-    auto air11 = Air(4, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood","Air");
-    auto air12 = Air(4, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood","Air");
-    auto fire13= Fire(4, 3, 10, 0, "Flashlight", "Alan Wake","Fire");
-    auto fire14= Fire(4, 3, 10, 0, "Flashlight", "Alan Wake","Fire");
-    auto fire15 = Fire(4, 3, 10, 0, "Army of Darkness", "Evil Ash","Fire");
-    auto fire16 = Fire(4, 3, 10, 0, "Army of Darkness", "Evil Ash","Fire");
-    auto ice17 = Ice(4, 3, 10, 0, "Tears in rain", "Roy Batty","Ice");
-    auto ice18 = Ice(4, 3, 10, 0, "Tears in rain", "Roy Batty","Ice");
-    auto ice19= Ice(4, 3, 10, 0, "Voight-Kampff test", "Rick Deckard","Ice");
-    auto ice20= Ice(4, 3, 10, 0, "Voight-Kampff test", "Rick Deckard","Ice");
-    auto steel21 = Steel(4, 3, 10, 0, "Boom-stick", "Ashley Williams","Steel");
-    auto steel22 = Steel(4, 3, 10, 0, "Boom-stick", "Ashley Williams","Steel");
-    auto steel23 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel");
-    auto steel24 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel");
-    auto air25 = Air(4, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood","Air");
-/*
-    for(std::string m : Water::strongAgainst)
-    {
-            if(m == "Fire")
-        std::cout << m <<" is an easy opponet for Water types" <<'\n';
-    }
-    */
+    auto steel0 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel",false);
+    auto water1= Water(4, 3, 10, 0, "Adam injection", "Frank Fontaine","Water",false);
+    auto water2= Water(4, 3, 10, 0, "Adam injection", "Frank Fontaine","Water",false);
+    auto water3 = Water(4, 3, 10, 0, "Rivet gun", "Big Daddy","Water",false);
+    auto water4 = Water(4, 3, 10, 0, "Rivet gun", "Big Daddy","Water",false);
+    auto earth5 = Earth(4, 3, 10, 0, "Undead Wrath", "Jason Voorhees","Earth",false);
+    auto earth6 = Earth(4, 3, 10, 0, "Undead Wrath", "Jason Voorhees","Earth",false);
+    auto earth7= Earth(4, 3, 10, 0, "Undying desire for vengeance", "Max Payne","Earth",false);
+    auto earth8= Earth(4, 3, 10, 0, "Undying desire for vengeance", "Max Payne","Earth",false);
+    auto air9 = Air(4, 3, 10, 0, "Flame Thrower", "Ellen Ripley","Air",false);
+    auto air10 = Air(4, 3, 10, 0, "Flame Thrower", "Ellen Ripley","Air",false);
+    auto air11 = Air(4, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood","Air",false);
+    auto air12 = Air(4, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood","Air",false);
+    auto fire13= Fire(4, 3, 10, 0, "Flashlight", "Alan Wake","Fire",false);
+    auto fire14= Fire(4, 3, 10, 0, "Flashlight", "Alan Wake","Fire",false);
+    auto fire15 = Fire(4, 3, 10, 0, "Army of Darkness", "Evil Ash","Fire",false);
+    auto fire16 = Fire(4, 3, 10, 0, "Army of Darkness", "Evil Ash","Fire",false);
+    auto ice17 = Ice(4, 3, 10, 0, "Tears in rain", "Roy Batty","Ice",false);
+    auto ice18 = Ice(4, 3, 10, 0, "Tears in rain", "Roy Batty","Ice",false);
+    auto ice19= Ice(4, 3, 10, 0, "Voight-Kampff test", "Rick Deckard","Ice",false);
+    auto ice20= Ice(4, 3, 10, 0, "Voight-Kampff test", "Rick Deckard","Ice",false);
+    auto steel21 = Steel(4, 3, 10, 0, "Boom-stick", "Ashley Williams","Steel",false);
+    auto steel22 = Steel(4, 3, 10, 0, "Boom-stick", "Ashley Williams","Steel",false);
+    auto steel23 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel",false);
+    auto steel24 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel",false);
+    auto air25 = Air(4, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood","Air",false);
 
 
 Player me = Player();
 
     me.chooseMonster();
 
-    Opponent hercules = Opponent("hercules");
-    Opponent zeus = Opponent("zeus");
-    Opponent nyx = Opponent("nyx");
-    Opponent zagreus = Opponent("zagreus");
+    Opponent Hercules = Opponent("hercules");
+    Opponent Zeus = Opponent("zeus");
+    Opponent Nyx = Opponent("nyx");
+    Opponent Zagreus = Opponent("zagreus");
 
-    hercules.moveMonster(Monster::necronomicon);
+    Hercules.moveMonster(Monster::necronomicon);
 
-    zeus.moveMonster(Monster::necronomicon);
+    Zeus.moveMonster(Monster::necronomicon);
 
-    nyx.moveMonster(Monster::necronomicon);
+    Nyx.moveMonster(Monster::necronomicon);
 
-    zagreus.moveMonster(Monster::necronomicon);
+    Zagreus.moveMonster(Monster::necronomicon);
 
     Start start = Start();
 

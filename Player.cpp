@@ -22,7 +22,7 @@
             for(Monster* m : Monster::necronomicon)
             {
                 std::cout<<number++ <<". "<<m->name<<", hp: "<< m->maxHealth<<"/"<<m->health<<", strg: "<< m->strength<<
-                         ", dex: "<<m->dexterity <<", spec: "<<m->special <<", exp: "<<m->exp <<", type: "<<m->type<< '\n';
+                         ", dex: "<<m->dexterity <<", spec: "<<m->special <<", exp: "<<m->exp <<", type: "<<m->type<<"evolve " <<m->evolve <<'\n';
                 std::cout<<"----------------------------------------------------------------------------------------------"<<'\n';
             }
             int input;

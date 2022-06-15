@@ -1,6 +1,5 @@
 #pragma once
-#ifndef EARTH_HPP
-#define EARTH_HPP
+
 #include <iostream>
 #include <utility>
 #include <vector>
@@ -12,11 +11,14 @@ struct Earth : Monster{
         static inline std::vector<std::string>  strongAgainst;
 
   static inline  std::string type;
+  bool evolve;
 
-     Earth(int strength, int dexterity, int health, int exp, const std::string& special, const std::string& name, std::string type)
-                    : Monster(strength, dexterity, health, exp, special, name,type)
-                    {};
+     Earth(int strength, int dexterity, int health, int exp, const std::string& special, const std::string& name, std::string type,bool evolve)
+                    : Monster(strength, dexterity, health, exp, special, name,type,evolve)
+                    {
+
+                    };
 
     static auto init() -> void;
 };
-#endif
+

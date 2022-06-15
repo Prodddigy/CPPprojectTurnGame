@@ -1,6 +1,5 @@
 #pragma once
-#ifndef AIR_HPP
-#define AIR_HPP
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -12,9 +11,9 @@ struct Air : Monster{
 
     std::string type ;
 
-    Air(int strength, int dexterity, int health, int exp, const std::string& special, const std::string& name,std::string type)
-            : Monster(strength, dexterity, health, exp, special, name,type) { }
+    Air(int strength, int dexterity, int health, int exp, const std::string& special, const std::string& name,std::string type,bool evolve)
+            : Monster(strength, dexterity, health, exp, special, name,type,evolve) { }
 
     static auto init() -> void;
 };
-#endif
+

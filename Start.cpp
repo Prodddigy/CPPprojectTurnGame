@@ -172,7 +172,7 @@ Start::Start()
             {
                 playerWins= true;
 
-                std::cout<<"game ends :)";
+                std::cout<<"game ends :) YOU WIN";
                 break;
             }
             else if (currentOpponent->isEnemyArmyDead())//checks if enemy's army is dead
@@ -188,14 +188,17 @@ Start::Start()
 
             if(playerMonster->health<=0)
             {
-
+                std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " <<'\n';
+            std::cout<<"Your current Champion: "<<playerMonster->name<<" status -> DECEASED. Choose a new one:"<<'\n';
+                std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " <<'\n';
+                std::cout << " " <<'\n';
                 playerMonster = playerChooseMonster(player);
             }
 
 
             std::cout << "a - playerAttack, s - special, c - change, h - help, q - quit" << '\n';
             if (enemyMonster->health > 0 && playerMonster->health > 0) {
-
+                playerMonster->evolveMon();
                 std::cout << "PLAYER "
                           << "--------------------VS-------------------------------------------------------  "
                           << currentOpponent->name << '\n';
@@ -203,48 +206,55 @@ Start::Start()
                           << " ----------------------------------------------------  " << "CHAMPION: "
                           << enemyMonster->name << '\n';
                 std::cout << "HP: " << playerMonster->health << "/" << playerMonster->maxHealth
-                          << " -------------------------------------------------------------------------  "
+                          << " ---------------------------------------------------- "
                           << "HP: " << enemyMonster->health << "/" << enemyMonster->maxHealth << '\n';
                 std::cout << "STRENGTH: " << playerMonster->strength
-                          << " -----------------------------------------------------------------  "
+                          << " ---------------------------------------------------- "
                           << "STRENGTH: " << enemyMonster->strength << '\n';
                 std::cout << "SPECIAL: " << playerMonster->special
-                          << " ---------------------------------------------------  " << "SPECIAL: "
+                          << " ---------------------------------------------------- " << "SPECIAL: "
                           << enemyMonster->special << '\n';
                 std::cout << "EXP: " << playerMonster->exp
-                          << " --------------------------------------------------------------  " << '\n';
+                          << " ---------------------------------------------------- " << '\n';
                 std::cout << "TYPE: " << playerMonster->type
-                          << " -----------------------------------------------------------------  "
+                          << " ---------------------------------------------------- "
                           << "TYPE: "
                           << enemyMonster->type << '\n';
             }
             else {
+                std::cout << " " <<'\n';
                 std::cout << "GET READY FOR THE NEXT BATTLE" << '\n';
+
+                std::cout << " " <<'\n';
                 continue;
             }
-
-
             char input;
             std::cin >> input;
             switch (input) {
                 case 'a' : {//playerAttack
                     // std::cout<<"fight"<<'\n';
-
+                    std::cout << "Battle status: " <<'\n';
+                    std::cout << "_____________________________________________ " <<'\n';
                     if ((rand() % 10 + 1) + enemyMonster->dexterity >= 7) {
                         playerAttack(playerMonster, enemyMonster);
+                        std::cout<<"Player -> "<<playerMonster->name << "has dealt some dmg to "<< enemyMonster->name<< '\n';
+                        playerMonster->exp+=10;
+
                     } else {
-                        std::cout << enemyMonster->name << " has dodged attack" << '\n';
+                        std::cout << currentOpponent->name<<" -> "<<enemyMonster->name << " has dodged attack" << '\n';
                     }
 
                     //enemy attacks
                     // playerMonster->health -= enemyMonster->strength;
                     if ((rand() % 10 + 1) + playerMonster->dexterity >= 7) {
-                        std::cout << "does it hit enemy attack?";
-                        playerAttack(enemyMonster, playerMonster);
-                    } else {
-                        std::cout << playerMonster->name << " has dodged attack" << '\n';
-                    }
 
+                        playerAttack(enemyMonster, playerMonster);
+                        std::cout<<currentOpponent->name<<" -> "<<enemyMonster->name << " has dealt some dmg to "<< playerMonster->name<< '\n';
+                    } else {
+                        std::cout <<"Player -> "<< playerMonster->name << " has dodged attack" << '\n';
+                    }
+                    std::cout << "_____________________________________________ " <<'\n';
+                    std::cout << " " <<'\n';
                     break;
                 }
                 case 's': {//special
