@@ -6,13 +6,24 @@
 
     }
 
+
+    /**
+     * moveMonster adds a Monster object from the @necronomicon vector (holds all Monster that are available in game)
+     * to @User Monster vector
+     * After addition, that same Monster is then removed from @necronomicon
+     * @param monsters
+     * @param beastIndex
+     */
     void Player::moveMonster(std::vector<Monster*> &monsters, int beastIndex )
     {
         playerArmy.push_back(monsters[beastIndex]);
         monsters.erase(monsters.begin()+beastIndex);
 
     }
-
+/**
+ *chooseMonster let's @User to add 6 no more , no less monsters to it's personal Monster vector
+ * @User chooses it's champions who have none of their own will
+ */
     void Player::chooseMonster()
     {
         std::cout<<"CHOOSE YOU CHAMPIONS+++++++++++++++++++++++++++++++++++BY INPUTTING THEIR INDEX"<<'\n';
@@ -34,7 +45,9 @@
 
 
     }
-
+/**
+ * showPlayerArmy who all current Monster that belong to the @User
+ */
     void Player::showPlayerArmy()
     {
         int enumerate=0;
@@ -49,7 +62,13 @@
         }
         std::cout<<"-----------------------------------------------------------------------------------------"<<'\n';
     }
-
+/**
+ * @Users death is defined by the number of available Champion whom are not dead
+ * if all 6 Champions have zeroed(or less) health
+ * they are assumed as dead
+ *
+ * @return boolean
+ */
     bool Player::checkArmyHp()
     {
         int deadites =0;
@@ -61,8 +80,10 @@
             }
         }
         if(deadites==6)
-        {
+
+        {   std::cout<<'\n'<<"GAME OVER"<<'\n';
             return false;
+
         }
         else
             return true;

@@ -1,5 +1,4 @@
-#include <iostream>
-#include <vector>
+
 #include "Monster.hpp"
 #include "Water.hpp"
 #include "Earth.hpp"
@@ -31,7 +30,7 @@ int main() {
     Ice::init();
     Steel::init();
 
-    //std::cout<<Air::type;
+
     auto steel0 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel",false);
     auto water1= Water(4, 3, 10, 0, "Adam injection", "Frank Fontaine","Water",false);
     auto water2= Water(4, 3, 10, 0, "Adam injection", "Frank Fontaine","Water",false);
@@ -58,7 +57,9 @@ int main() {
     auto steel23 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel",false);
     auto steel24 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel",false);
     auto air25 = Air(2, 6, 25, 0, "Holding breath underwater for 10 minutes", "Guybrush Threepwood","Air",false);
-
+    /**
+     * above objects are the champions which are to be chosen by @User and later by thee @Enemy
+     */
 
 Player me = Player();
 

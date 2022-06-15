@@ -11,7 +11,16 @@ Start::Start()
     {
 
     }
-
+/**
+ * playerAttack checks strengths and weaknesses of opposing Monsters
+ * and accordingly decreases victims health field
+ * @param attackingMon
+ * @param victimMon
+ *
+ * @return void
+ *
+ * NOTE: next time use enum class
+ */
     void Start::playerAttack(Monster *attackingMon, Monster *victimMon)
     {
         bool foundSpot = false;
@@ -149,40 +158,48 @@ Start::Start()
         }
     }
 
-
+/**
+ * battle serves as main menu where all player choices are made
+ *  user has 5 choices : @attack , use @special, @change champion/Monster, @quit
+ * whenever a monster, enemy or all enemies are defeated function accordingly switches to the new opponent or monster
+ * but in case of defeateing whole vector of enemies function ends and so with it the game
+ * @param player
+ * @param allEnemies
+ *
+ */
     void Start::battle(Player player, std::vector<Opponent*> allEnemies) {
 
         bool playerWins = false;
         int enemyMonsterCounter = 0;
         int enemyCounter=0;
 
-        Monster *playerMonster = playerChooseMonster(player);
+        Monster *playerMonster = playerChooseMonster(player);////Monster owned by @User
 
-        Opponent *currentOpponent = allEnemies[enemyCounter];
+        Opponent *currentOpponent = allEnemies[enemyCounter];////Currently fought enemy
 
-        Monster *enemyMonster = currentOpponent->enemyArmy[enemyMonsterCounter];
+        Monster *enemyMonster = currentOpponent->enemyArmy[enemyMonsterCounter];////currently fought enemy Monster
 
-        while (player.checkArmyHp()) {
-            //  std::cout<<"enters loop?";
-            if (Opponent::isAllEnemiesDead())
+        while (player.checkArmyHp()) {////if player army is fully deceased, game ends
+
+            if (Opponent::isAllEnemiesDead())///checks if all enemies have been defeated
             {
                 playerWins= true;
 
                 std::cout<<"game ends :) YOU WIN";
                 break;
             }
-            else if (currentOpponent->isEnemyArmyDead())//checks if enemy's army is dead
+            else if (currentOpponent->isEnemyArmyDead())////checks if enemy's army is dead
             {
                 enemyMonsterCounter =0;
                 enemyCounter++;
                 currentOpponent=allEnemies[enemyCounter];
             }
-            else if (enemyMonster->health <= 0)
+            else if (enemyMonster->health <= 0)////is enemy Monster dead?
             {
                 enemyMonster = currentOpponent->enemyArmy[enemyMonsterCounter++];
             }
 
-            if(playerMonster->health<=0)
+            if(playerMonster->health<=0)////is @User's Monster dead ?
             {
                 std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " <<'\n';
             std::cout<<"Your current Champion: "<<playerMonster->name<<" status -> DECEASED. Choose a new one:"<<'\n';
@@ -193,7 +210,7 @@ Start::Start()
 
 
             std::cout << "a - playerAttack, s - special, c - change, h - help, q - quit" << '\n';
-            if (enemyMonster->health > 0 && playerMonster->health > 0) {
+            if (enemyMonster->health > 0 && playerMonster->health > 0) {////display only if both Monsters are alive
                 playerMonster->evolveMon();
                 std::cout << "PLAYER "
                           << "--------------------VS-------------------------------------------------------  "
@@ -220,7 +237,7 @@ Start::Start()
                           << "TYPE: "
                           << enemyMonster->type << '\n';
             }
-            else {
+            else {////else continue with a new Enemy and or Opponent
                 std::cout << " " <<'\n';
                 std::cout << "GET READY FOR THE NEXT BATTLE" << '\n';
 
@@ -230,14 +247,16 @@ Start::Start()
                 char input;
                 std::cin >> input;
                 switch (input) {
-                case 'a' : {//playerAttack
+                case 'a' : {////playerAttack
 
                     std::cout << "Battle status: " <<'\n';
                     std::cout << "Battle_____________________________________________ " <<'\n';
+
+                    ////dodge mechanic
                     if ((rand() % 10 + 1) + enemyMonster->dexterity >= 7) {
                         playerAttack(playerMonster, enemyMonster);
                         std::cout<<"Player -> "<<playerMonster->name << "has dealt some dmg to "<< enemyMonster->name<< '\n';
-                        playerMonster->exp+=2;
+                        playerMonster->exp+=2;////add exp after successful DMG dealt
                     }
                     else
                     {
@@ -246,9 +265,9 @@ Start::Start()
 
                     if(playerMonster->specialUsed && !playerMonster->specialUnUsed)
                     {
-                        playerMonster->specialRoundsLeft--;
+                        playerMonster->specialRoundsLeft--;////decreases the count of used specials
 
-                        if(playerMonster->specialRoundsLeft==0)
+                        if(playerMonster->specialRoundsLeft==0)/////if all specials were used undo them
                         {
                             playerMonster->undoSpecialAttack();
                             playerMonster->specialUnUsed= true;
@@ -256,6 +275,7 @@ Start::Start()
                     }
 
                     //enemy attacks
+                    ////dodge mechanic
                     if ((rand() % 10 + 1) + playerMonster->dexterity >= 7) {
 
                         playerAttack(enemyMonster, playerMonster);
@@ -267,7 +287,7 @@ Start::Start()
                     std::cout << " " <<'\n';
                     break;
                 }
-                case 's': {//special
+                case 's': {////use special if it's still available
 
                     if(!playerMonster->specialUsed)
                     {
@@ -275,7 +295,7 @@ Start::Start()
                         playerMonster->specialAttack();
 
                     }
-                    else{
+                    else{////if not....
                         std::cout<<"special~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<'\n';
                         std::cout<<playerMonster->name<<" Has already used his/hers special move..."<<'\n';
 
@@ -283,22 +303,22 @@ Start::Start()
                     }
                     break;
                 }
-                case 'c': {//change
+                case 'c': {/////change champion
                     std::cout << "change";
                     playerMonster = playerChooseMonster(player);
                     break;
                 }
-                case 'h': {//help
+                case 'h': {/////help and rules
                     std::cout << "help";
                     helpAndRules();
                     break;
                 }
-                case 'q': {
+                case 'q': {////quit and rest before the next semester :(
                     std::cout << "quit";
                     break;
                 }
                 default : {
-                    std::cout << "try again";
+                    std::cout << "try again";////maybe this time you won't get ITN
                 }
             }
             if (input == 'q') {
@@ -307,6 +327,14 @@ Start::Start()
         }
     }
 
+
+    /**
+     * Before the 1st encounter @User must choose their 1st Champion to fight with
+     * And in case of a honorable death of a champion, this method is also envoked
+     * if @User is to choose a dead champion method is invoked again
+     * @param player
+     * @return Monster object
+     */
      Monster* Start::playerChooseMonster(Player player)
     {
         std::cout<<"Choose your fighter by index: "<<'\n';
@@ -319,7 +347,11 @@ Start::Start()
         return player.playerArmy[userInput];
     }
 
-
+/**
+ * invoked by case h in @battle method
+ * shows a short rule book
+ *
+ */
     void Start::helpAndRules()
     {
         std::cout <<'\n';

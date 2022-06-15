@@ -1,7 +1,3 @@
-//
-// Created by czarn on 14/06/2022.
-//
-
 #include "Opponent.hpp"
 
 
@@ -15,7 +11,6 @@ Opponent::Opponent(std::string name)
 void Opponent::moveMonster(std::vector<Monster*> &monsters ) {
 
     for (int i = 0; i < 4; i++) {
-        // if(i >= (monsters.size()-1))
 
         this->enemyArmy.push_back(monsters[i]);
         monsters.erase(monsters.begin() + i);
