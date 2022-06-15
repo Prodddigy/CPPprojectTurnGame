@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Monster.hpp"
 
-Monster::Monster(int strength, int dexterity, int health, int exp, const std::string &special, const std::string &name, std::string type,bool evolve)
+Monster::Monster(int strength, int dexterity, int health, int exp, const std::string &special, const std::string &name, const std::string &type,bool evolve)
 :strength(strength),dexterity(dexterity),health(health),maxHealth(health),exp(exp),special(special),name(name), type(type),evolve(evolve){
     necronomicon.push_back(this);}
 
@@ -19,5 +19,13 @@ void Monster::evolveMon() {
         std::cout<<"************************************************"<<'\n';
 
     }
+
+}
+
+ void Monster::undoSpecialAttack() {
+
+}
+
+void Monster::specialAttack() {
 
 }

@@ -82,7 +82,6 @@ Start::Start()
             }  if(!foundSpot)
                 victimMon->health -= (attackingMon->strength );
         }
-
         else if(attackingMon->type =="Steel")
         {
             for( const std::string& weak : Steel::weakAgainst)
@@ -157,11 +156,8 @@ Start::Start()
         int enemyMonsterCounter = 0;
         int enemyCounter=0;
 
-
-        //  Monster playerMonster = *player.playerArmy[0];
         Monster *playerMonster = playerChooseMonster(player);
 
-        // int *hp = &playerMonster.health;
         Opponent *currentOpponent = allEnemies[enemyCounter];
 
         Monster *enemyMonster = currentOpponent->enemyArmy[enemyMonsterCounter];
@@ -211,6 +207,9 @@ Start::Start()
                 std::cout << "STRENGTH: " << playerMonster->strength
                           << " ---------------------------------------------------- "
                           << "STRENGTH: " << enemyMonster->strength << '\n';
+                std::cout << "DEXTERITY: " << playerMonster->dexterity
+                          << " ---------------------------------------------------- " << "DEXTERITY: "
+                          << enemyMonster->dexterity << '\n';
                 std::cout << "SPECIAL: " << playerMonster->special
                           << " ---------------------------------------------------- " << "SPECIAL: "
                           << enemyMonster->special << '\n';
@@ -228,24 +227,35 @@ Start::Start()
                 std::cout << " " <<'\n';
                 continue;
             }
-            char input;
-            std::cin >> input;
-            switch (input) {
+                char input;
+                std::cin >> input;
+                switch (input) {
                 case 'a' : {//playerAttack
-                    // std::cout<<"fight"<<'\n';
+
                     std::cout << "Battle status: " <<'\n';
-                    std::cout << "_____________________________________________ " <<'\n';
+                    std::cout << "Battle_____________________________________________ " <<'\n';
                     if ((rand() % 10 + 1) + enemyMonster->dexterity >= 7) {
                         playerAttack(playerMonster, enemyMonster);
                         std::cout<<"Player -> "<<playerMonster->name << "has dealt some dmg to "<< enemyMonster->name<< '\n';
-                        playerMonster->exp+=10;
-
-                    } else {
+                        playerMonster->exp+=2;
+                    }
+                    else
+                    {
                         std::cout << currentOpponent->name<<" -> "<<enemyMonster->name << " has dodged attack" << '\n';
                     }
 
+                    if(playerMonster->specialUsed && !playerMonster->specialUnUsed)
+                    {
+                        playerMonster->specialRoundsLeft--;
+
+                        if(playerMonster->specialRoundsLeft==0)
+                        {
+                            playerMonster->undoSpecialAttack();
+                            playerMonster->specialUnUsed= true;
+                        }
+                    }
+
                     //enemy attacks
-                    // playerMonster->health -= enemyMonster->strength;
                     if ((rand() % 10 + 1) + playerMonster->dexterity >= 7) {
 
                         playerAttack(enemyMonster, playerMonster);
@@ -253,13 +263,24 @@ Start::Start()
                     } else {
                         std::cout <<"Player -> "<< playerMonster->name << " has dodged attack" << '\n';
                     }
-                    std::cout << "_____________________________________________ " <<'\n';
+                    std::cout << "_____________________________________________status " <<'\n';
                     std::cout << " " <<'\n';
                     break;
                 }
                 case 's': {//special
-                    std::cout << "special";
 
+                    if(!playerMonster->specialUsed)
+                    {
+                        playerMonster->specialUsed=true;
+                        playerMonster->specialAttack();
+
+                    }
+                    else{
+                        std::cout<<"special~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<'\n';
+                        std::cout<<playerMonster->name<<" Has already used his/hers special move..."<<'\n';
+
+                        std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~special"<<'\n';
+                    }
                     break;
                 }
                 case 'c': {//change
@@ -269,6 +290,7 @@ Start::Start()
                 }
                 case 'h': {//help
                     std::cout << "help";
+                    helpAndRules();
                     break;
                 }
                 case 'q': {
@@ -282,13 +304,7 @@ Start::Start()
             if (input == 'q') {
                 break;
             }
-
-
-
         }
-
-        //while()
-
     }
 
      Monster* Start::playerChooseMonster(Player player)
@@ -303,3 +319,20 @@ Start::Start()
         return player.playerArmy[userInput];
     }
 
+
+    void Start::helpAndRules()
+    {
+        std::cout <<'\n';
+    std::cout <<"OFFICIAL RULES OF \"TURBO KILLER\", THE TURN-BASED STRATEGY GAME THAT'S not TRADE MARKED AND noT LICENCED."<<'\n';;
+    std::cout <<"[a] ATTACKS reduce enemy's hp";
+    std::cout <<", both Your Champions and Opponent's Champions can dodge attacks."<<'\n';
+    std::cout <<"[c] Choose to CHANGE Your Champion."<<'\n';
+    std::cout <<"[q] Just QUIT the \'game\'."<<'\n';
+    std::cout <<"[s] SPECIAL attacks last only for 2 fights, here is what each SPECIAL does DEPENDING on their type:"<<'\n';
+    std::cout <<"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"<<'\n';
+    std::cout <<"*AIR* ->+20 HP and +2 STR, but after 2 FIGHTS -3 STR | *EARTH* ->+4 STR and +7 HP, but after 2 FIGHTS -4 DEX."<<'\n';
+    std::cout <<"*FIRE* ->+10 STR and +3 DEX, but after 2 FIGHTS -10 STR and -3 DEX | *ICE* ->+3 STR and +7 DEX, but after 2 FIGHTS -5 HP."<<'\n';
+    std::cout <<"*STEEL* ->+10 STR and +5 HP, but after 2 FIGHTS -10 STR | *WATER* ->+5 STR and +15 HP, but after 2 FIGHTS -2 DEX."<<'\n';
+        std::cout <<'\n';
+
+    }

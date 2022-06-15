@@ -22,12 +22,8 @@
 
 //-------------------------------------------------------------------------------------------------------------------
 
-int main() {/*
- * make all structs
- * each struct has a seperate file
- *
- *
- */
+int main() {
+
     Water::init();
     Earth::init();
     Air::init();
@@ -45,10 +41,10 @@ int main() {/*
     auto earth6 = Earth(4, 3, 10, 0, "Undead Wrath", "Jason Voorhees","Earth",false);
     auto earth7= Earth(4, 3, 10, 0, "Undying desire for vengeance", "Max Payne","Earth",false);
     auto earth8= Earth(4, 3, 10, 0, "Undying desire for vengeance", "Max Payne","Earth",false);
-    auto air9 = Air(4, 3, 10, 0, "Flame Thrower", "Ellen Ripley","Air",false);
-    auto air10 = Air(4, 3, 10, 0, "Flame Thrower", "Ellen Ripley","Air",false);
-    auto air11 = Air(4, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood","Air",false);
-    auto air12 = Air(4, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood","Air",false);
+    auto air9 = Air(6, 3, 10, 0, "Flame Thrower", "Ellen Ripley","Air",false);
+    auto air10 = Air(6, 3, 10, 0, "Flame Thrower", "Ellen Ripley","Air",false);
+    auto air11 = Air(2, 6, 25, 0, "Holding breath underwater for 10 minutes", "Guybrush Threepwood","Air",false);
+    auto air12 = Air(2, 6, 25, 0, "Holding breath underwater for 10 minutes", "Guybrush Threepwood","Air",false);
     auto fire13= Fire(4, 3, 10, 0, "Flashlight", "Alan Wake","Fire",false);
     auto fire14= Fire(4, 3, 10, 0, "Flashlight", "Alan Wake","Fire",false);
     auto fire15 = Fire(4, 3, 10, 0, "Army of Darkness", "Evil Ash","Fire",false);
@@ -61,17 +57,17 @@ int main() {/*
     auto steel22 = Steel(4, 3, 10, 0, "Boom-stick", "Ashley Williams","Steel",false);
     auto steel23 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel",false);
     auto steel24 = Steel(4, 3, 10, 0, "Camp protector", "Tommy Jarvis","Steel",false);
-    auto air25 = Air(4, 3, 10, 0, "Monkey Kombat", "Guybrush Threepwood","Air",false);
+    auto air25 = Air(2, 6, 25, 0, "Holding breath underwater for 10 minutes", "Guybrush Threepwood","Air",false);
 
 
 Player me = Player();
 
     me.chooseMonster();
 
-    Opponent Hercules = Opponent("hercules");
-    Opponent Zeus = Opponent("zeus");
-    Opponent Nyx = Opponent("nyx");
-    Opponent Zagreus = Opponent("zagreus");
+    Opponent Hercules = Opponent("Hercules");
+    Opponent Zeus = Opponent("Zeus");
+    Opponent Nyx = Opponent("Nyx");
+    Opponent Zagreus = Opponent("Zagreus");
 
     Hercules.moveMonster(Monster::necronomicon);
 

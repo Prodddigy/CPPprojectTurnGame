@@ -14,5 +14,9 @@ struct Fire : Monster {
             : Monster(strength, dexterity, health, exp, special, name, type,evolve) { }
 
     static auto init() -> void;
+
+    void specialAttack() override;
+
+    void undoSpecialAttack() override;
 };
 

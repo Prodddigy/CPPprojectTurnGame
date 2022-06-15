@@ -17,5 +17,9 @@ struct Water : Monster {
 
     //Methods
     static auto init() -> void;
+
+    void specialAttack() override;
+
+    void undoSpecialAttack() override;
 };
 

@@ -15,20 +15,24 @@
 
     void Player::chooseMonster()
     {
-        std::cout<<"Choose your champions"<<'\n';
+        std::cout<<"CHOOSE YOU CHAMPIONS+++++++++++++++++++++++++++++++++++BY INPUTTING THEIR INDEX"<<'\n';
 
         for(int i=0 ; i<6; i++) {
             int number=0;
             for(Monster* m : Monster::necronomicon)
             {
-                std::cout<<number++ <<". "<<m->name<<", hp: "<< m->maxHealth<<"/"<<m->health<<", strg: "<< m->strength<<
-                         ", dex: "<<m->dexterity <<", spec: "<<m->special <<", exp: "<<m->exp <<", type: "<<m->type<<"evolve " <<m->evolve <<'\n';
+                std::cout<<"["<<number <<"]<"<<m->name<<",HP: "<< m->maxHealth<<"/"<<m->health<<",STR: "<< m->strength<<
+                         ",DEX: "<<m->dexterity <<",SPEC: "<<m->special <<", EXP: "<<m->exp <<", TYPE: "<<m->type <<">["<<number++ <<"]. "<<'\n';
                 std::cout<<"----------------------------------------------------------------------------------------------"<<'\n';
             }
+
+            std::cout<<"CHOOSE YOU CHAMPIONS^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^BY INPUTTING THEIR INDEX ,"<<-(i -6)<<" MORE"<<'\n';
             int input;
             std::cin >> input;
             this->moveMonster(Monster::necronomicon, input);
         }
+
+
     }
 
     void Player::showPlayerArmy()
@@ -37,13 +41,13 @@
         for(Monster* m : playerArmy)
         {
 
-            std::cout << enumerate++ << ". " << m->name << ", hp: " << m->health << "/" << m->maxHealth
-                      << ", strg: " << m->strength <<
-                      ", dex: " << m->dexterity << ", spec: " << m->special << ", exp: " << m->exp << ", type: "
+            std::cout <<"["<< enumerate++ << "]. " << m->name << ", HP: " << m->health << "/" << m->maxHealth
+                      << ", STR: " << m->strength <<
+                      ", DEX: " << m->dexterity << ", SPEC: " << m->special << ", EXP: " << m->exp << ", TYPE: "
                       << m->type << '\n';
 
         }
-        std::cout<<'\n';
+        std::cout<<"-----------------------------------------------------------------------------------------"<<'\n';
     }
 
     bool Player::checkArmyHp()

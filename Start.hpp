@@ -19,4 +19,5 @@ void  battle(Player player, std::vector<Opponent*> allEnemies);
 
 static Monster* playerChooseMonster(Player player);
 
+    static void helpAndRules();
 };

@@ -15,5 +15,9 @@ struct Air : Monster{
             : Monster(strength, dexterity, health, exp, special, name,type,evolve) { }
 
     static auto init() -> void;
+
+    void undoSpecialAttack() override;
+
+    void specialAttack() override;
 };
 
